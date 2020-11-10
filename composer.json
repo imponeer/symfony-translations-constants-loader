@@ -1,0 +1,33 @@
+{
+    "name": "imponeer/symfony-translations-constants-loader",
+    "description": "symfony/translation extension to load PHP files that are defined all translations as constants",
+    "type": "library",
+    "require": {
+        "php": "^7.1 || ^8.0",
+        "symfony/translation": "^5.0"
+    },
+    "keywords": [
+        "translation",
+        "symfony/translation",
+        "loader",
+        "constants"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raimondas Rimkevičius",
+            "email": "github@mekdrop.name"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Imponeer\\SymfonyTranslationsConstantsLoader\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "/tests/"
+        ]
+    }
+}
