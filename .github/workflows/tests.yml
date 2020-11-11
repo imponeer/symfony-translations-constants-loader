@@ -14,16 +14,14 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        os:
-          - windows-latest
-          - ubuntu-latest
-          - macOS-latest
         php:
-          - 7.1
-          - 7.2
           - 7.3
           - 7.4
           - 8.0
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macOS-latest
     name: PHP ${{ matrix.php }}; ${{ matrix.os }}
     steps:
       - name: Setup PHP
