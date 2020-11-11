@@ -1,16 +1,17 @@
 <?php
 
-
 namespace Imponeer\Tests\SymfonyTranslationsConstantsLoader;
 
+use Imponeer\SymfonyTranslationsConstantsLoader\PHPFileDumper;
 use Imponeer\SymfonyTranslationsConstantsLoader\PHPFileLoader;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Translator;
 
-class LoaderTest extends TestCase
+class DumperTest extends TestCase
 {
+
     /**
      * @var vfsStreamDirectory
      */
@@ -20,6 +21,38 @@ class LoaderTest extends TestCase
      * @var array
      */
     private $localData = [];
+
+    public function testDumper()
+    {
+        $translation = new Translator('en');
+        $translation->addLoader('php', new PHPFileLoader());
+        foreach ($this->localData as $lang => $translations) {
+            $translation->addResource(
+                'php',
+                $this->fileSystem->url() . '/translations/' . $lang,
+                $lang,
+                'dummy'
+            );
+        }
+
+        $dumper = new PHPFileDumper();
+        $dumper->dump(
+            $translation->getCatalogue('en'),
+            [
+                'path' => $this->fileSystem->url() . '/dumps/'
+            ]
+        );
+
+        $this->assertTrue(
+            $this->fileSystem->hasChild('dumps'),
+            'Dump folder doesnt exist'
+        );
+
+        $this->assertTrue(
+            $this->fileSystem->hasChild('dumps/dummy.en.php'),
+            'dummy.en.php file doesnt exist'
+        );
+    }
 
     protected function setUp(): void
     {
@@ -46,30 +79,6 @@ class LoaderTest extends TestCase
         }
 
         $this->fileSystem = vfsStream::setup('tmp', null, $filesystem);
-    }
-
-    public function testLoader()
-    {
-        $translation = new Translator('en');
-        $translation->addLoader('php', new PHPFileLoader());
-        foreach ($this->localData as $lang => $translations) {
-            $translation->addResource(
-                'php',
-                $this->fileSystem->url() . '/translations/' . $lang,
-                $lang,
-                'dummy'
-            );
-        }
-
-        foreach ($this->localData as $lang => $translations) {
-            foreach ($translations as $from => $to) {
-                $this->assertSame(
-                    $to,
-                    $translation->trans($from, [], 'dummy', $lang),
-                    $lang . ' translation for failed'
-                );
-            }
-        }
     }
 
 }
