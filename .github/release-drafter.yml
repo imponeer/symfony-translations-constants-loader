@@ -10,6 +10,7 @@ categories:
   - title: '🧰 Maintenance'
     labels: 
        - 'chore'
+       - 'dependencies'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 template: |
   ## What's Changed
