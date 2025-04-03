@@ -1,4 +1,5 @@
-[![Packagist License](https://img.shields.io/packagist/l/imponeer/symfony-translations-constants-loader)](https://github.com/imponeer/symfony-translations-constants-loader/blob/main/LICENSE) [![Packagist Version](https://img.shields.io/packagist/v/imponeer/symfony-translations-constants-loader)](https://packagist.org/packages/imponeer/symfony-translations-constants-loader)
+[![Packagist License](https://img.shields.io/packagist/l/imponeer/symfony-translations-constants-loader)](https://github.com/imponeer/symfony-translations-constants-loader/blob/main/LICENSE) [![Packagist Version](https://img.shields.io/packagist/v/imponeer/symfony-translations-constants-loader)](https://packagist.org/packages/imponeer/symfony-translations-constants-loader) [![Packagist Dependency Version](https://img.shields.io/packagist/dependency-v/imponeer/symfony-translations-constants-loader/php)](https://github.com/imponeer/symfony-translations-constants-loader/blob/main/composer.json)
+
 
 # Symfony Translations Constants Loader
 
