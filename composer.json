@@ -4,7 +4,10 @@
     "type": "library",
     "require": {
         "php": ">=8.2",
-        "symfony/translation": "^5.0"
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-pcre": "*",
+        "symfony/translation": "^7.0"
     },
     "keywords": [
         "translation",
@@ -12,6 +15,9 @@
         "loader",
         "constants"
     ],
+    "config": {
+        "sort-packages": true
+    },
     "license": "MIT",
     "authors": [
         {

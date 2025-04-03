@@ -2,6 +2,8 @@
 
 namespace Imponeer\SymfonyTranslationsConstantsLoader;
 
+use Stringable;
+
 /**
  * Class to handle some temporary constants data
  *
@@ -12,9 +14,9 @@ final class TempConstantsBag
     /**
      * Temp data
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected static $data = [];
+    private static $data = [];
 
     /**
      * Disabled TempConstantsBag constructor.
@@ -29,9 +31,9 @@ final class TempConstantsBag
      * @param string $constant Constant to define
      * @param mixed $value Value of constant
      */
-    public static function define($constant, $value): void
+    public static function define(string $constant, string|int|float|Stringable $value): void
     {
-        static::$data[$constant] = (string)$value;
+        self::$data[$constant] = (string)$value;
     }
 
     /**
@@ -39,7 +41,7 @@ final class TempConstantsBag
      */
     public static function clear(): void
     {
-        static::$data = [];
+        self::$data = [];
     }
 
     /**
@@ -49,7 +51,7 @@ final class TempConstantsBag
      */
     public static function getAll(): array
     {
-        return static::$data;
+        return self::$data;
     }
 
 }
