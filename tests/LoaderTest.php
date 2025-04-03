@@ -11,26 +11,23 @@ use Symfony\Component\Translation\Translator;
 
 class LoaderTest extends TestCase
 {
-    /**
-     * @var vfsStreamDirectory
-     */
-    private $fileSystem;
+    private vfsStreamDirectory $fileSystem;
 
     /**
-     * @var array
+     * @var array<string, array<string, string>>
      */
-    private $localData = [];
+    private array $localData = [];
 
     protected function setUp(): void
     {
         $this->localData = [
             'en' => [
-                '_T_VALUE_1' => sha1(microtime(true) . mt_rand(PHP_INT_MIN, PHP_INT_MAX)),
-                '_T_VALUE_2' => sha1(microtime(true) . mt_rand(PHP_INT_MIN, PHP_INT_MAX)),
+                '_T_VALUE_1' => sha1(microtime(true) . random_int(PHP_INT_MIN, PHP_INT_MAX)),
+                '_T_VALUE_2' => sha1(microtime(true) . random_int(PHP_INT_MIN, PHP_INT_MAX)),
             ],
             'lt' => [
-                '_T_VALUE_1' => md5(microtime(true) . mt_rand(PHP_INT_MIN, PHP_INT_MAX)),
-                '_T_VALUE_2' => md5(microtime(true) . mt_rand(PHP_INT_MIN, PHP_INT_MAX)),
+                '_T_VALUE_1' => md5(microtime(true) . random_int(PHP_INT_MIN, PHP_INT_MAX)),
+                '_T_VALUE_2' => md5(microtime(true) . random_int(PHP_INT_MIN, PHP_INT_MAX)),
             ],
         ];
 
@@ -40,7 +37,11 @@ class LoaderTest extends TestCase
         foreach ($this->localData as $lang => $translations) {
             $data = '<?php ' . PHP_EOL;
             foreach ($translations as $from => $to) {
-                $data .= sprintf("define(%s, %s);", json_encode((string)$from), json_encode((string)$to)) . PHP_EOL;
+                $data .= sprintf(
+                    "define(%s, %s);",
+                        json_encode((string)$from, JSON_THROW_ON_ERROR),
+                        json_encode((string)$to, JSON_THROW_ON_ERROR)
+                    ) . PHP_EOL;
             }
             $filesystem['translations'][$lang] = $data;
         }
@@ -48,7 +49,7 @@ class LoaderTest extends TestCase
         $this->fileSystem = vfsStream::setup('tmp', null, $filesystem);
     }
 
-    public function testLoader()
+    public function testLoader(): void
     {
         $translation = new Translator('en');
         $translation->addLoader('php', new PHPFileLoader());

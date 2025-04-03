@@ -17,14 +17,14 @@ class PHPFileLoader implements LoaderInterface
     /**
      * @inheritDoc
      */
-    public function load($resource, string $locale, string $domain = 'messages')
+    final public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
         if (!file_exists($resource)) {
             throw new NotFoundResourceException($resource . ' is not found');
         }
 
         $content = '<?php ' . PHP_EOL .
-            'namespace Imponeer\\SymfonyTranslationsConstantsLoader\\Temp\\Dummy' . md5(mt_rand(0, PHP_INT_MAX)) . ';' . PHP_EOL .
+            'namespace Imponeer\\SymfonyTranslationsConstantsLoader\\Temp\\Dummy' . md5(random_int(0, PHP_INT_MAX)) . ';' . PHP_EOL .
             'use ' . TempConstantsBag::class . ';' . PHP_EOL .
             'function define($constant, $value) {' . PHP_EOL .
             '  TempConstantsBag::define($constant, $value);' . PHP_EOL .

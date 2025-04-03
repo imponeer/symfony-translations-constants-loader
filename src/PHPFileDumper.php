@@ -16,12 +16,16 @@ class PHPFileDumper extends FileDumper
     /**
      * @inheritDoc
      */
-    public function formatCatalogue(MessageCatalogue $messages, string $domain, array $options = [])
+    public function formatCatalogue(MessageCatalogue $messages, string $domain, array $options = []): string
     {
         $output = '';
 
         foreach ($messages->all($domain) as $source => $target) {
-            $output .= sprintf("define(%s, %s);\n", json_encode((string)$source), json_encode((string)$target));
+            $output .= sprintf(
+                "define(%s, %s);\n",
+                json_encode((string)$source, JSON_THROW_ON_ERROR),
+                json_encode((string)$target, JSON_THROW_ON_ERROR)
+            );
         }
 
         return $output;
@@ -30,7 +34,7 @@ class PHPFileDumper extends FileDumper
     /**
      * @inheritDoc
      */
-    protected function getExtension()
+    protected function getExtension(): string
     {
         return 'php';
     }
