@@ -3,7 +3,7 @@
     "description": "symfony/translation extension to load PHP files that are defined all translations as constants",
     "type": "library",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pcre": "*",
