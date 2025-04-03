@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="vendor/autoload.php"
-         convertDeprecationsToExceptions="true"
          stopOnFailure="false">
 
     <testsuites>
@@ -9,9 +8,4 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
-        <include>
-            <directory>src/</directory>
-        </include>
-    </coverage>
 </phpunit>
