@@ -17,6 +17,6 @@ Otherwise you need to include manualy files from `src/` directory.
 
 ## How to contribute?
 
-If you want to add some functionality or fix bugs, you can fork, change and create pull request. If you not sure how this works, try [interactive GitHub tutorial](https://skills.github.com).
+If you want to add some functionality or fix bugs, you can fork, change and create pull request. If you not sure how this works, try read [GitHub documentation about git](https://docs.github.com/en/get-started/using-git).
 
 If you found any bug or have some questions, use [issues tab](https://github.com/imponeer/symfony-translations-constants-loader/issues) and write there your questions.
