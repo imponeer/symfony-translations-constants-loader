@@ -15,6 +15,39 @@ composer require imponeer/symfony-translations-constants-loader
 
 Otherwise you need to include manualy files from `src/` directory. 
 
+## Usage Example
+
+### 1. Create a file with `define()` constants:
+
+```php
+// translations/en/messages.php
+
+define('HELLO', 'Hello!');
+define('GOODBYE', 'Goodbye!');
+```
+
+> 💡 You can create separate files for other locales, such as `translations/fr/messages.php`.
+
+### 2. Load the constants using the PHPFileLoader:
+
+```php
+use Symfony\Component\Translation\Translator;
+use Imponeer\SymfonyTranslationsConstantsLoader\PHPFileLoader;
+
+$translator = new Translator('en');
+
+// Register the loader for the 'php_consts' format
+$translator->addLoader('php_consts', new PHPFileLoader());
+
+// Add your translation resource
+$translator->addResource('php_consts', __DIR__ . '/translations/en/messages.php', 'en');
+
+// Use translations
+echo $translator->trans('HELLO');   // Outputs: Hello!
+echo $translator->trans('GOODBYE'); // Outputs: Goodbye!
+```
+
+
 ## How to contribute?
 
 If you want to add some functionality or fix bugs, you can fork, change and create pull request. If you not sure how this works, try read [GitHub documentation about git](https://docs.github.com/en/get-started/using-git).
