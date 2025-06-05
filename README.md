@@ -48,8 +48,36 @@ echo $translator->trans('GOODBYE'); // Outputs: Goodbye!
 ```
 
 
+## Development
+
+### Code Style
+
+This project follows the [PSR-12](https://www.php-fig.org/psr/psr-12/) coding standard. To check your code for style issues:
+
+```bash
+composer phpcs
+```
+
+To automatically fix most coding standards issues:
+
+```bash
+composer phpcbf
+```
+
+### Testing
+
+To run the test suite, execute:
+
+```bash
+vendor/bin/phpunit
+```
+
+This will run all tests in the `tests/` directory.
+
 ## How to contribute?
 
 If you want to add some functionality or fix bugs, you can fork, change and create pull request. If you not sure how this works, try read [GitHub documentation about git](https://docs.github.com/en/get-started/using-git).
+
+Please make sure your code follows the PSR-12 coding standard by running the code style checks before submitting a pull request.
 
 If you found any bug or have some questions, use [issues tab](https://github.com/imponeer/symfony-translations-constants-loader/issues) and write there your questions.
