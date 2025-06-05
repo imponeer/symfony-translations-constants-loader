@@ -14,9 +14,9 @@ final class TempConstantsBag
     /**
      * Temp data
      *
-     * @var array<string, string>
+     * @var array<string, string> $data
      */
-    private static $data = [];
+    private static array $data = [];
 
     /**
      * Disabled TempConstantsBag constructor.
@@ -53,5 +53,4 @@ final class TempConstantsBag
     {
         return self::$data;
     }
-
 }

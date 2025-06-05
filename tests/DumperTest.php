@@ -4,14 +4,15 @@ namespace Imponeer\Tests\SymfonyTranslationsConstantsLoader;
 
 use Imponeer\SymfonyTranslationsConstantsLoader\PHPFileDumper;
 use Imponeer\SymfonyTranslationsConstantsLoader\PHPFileLoader;
+use JsonException;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
+use Random\RandomException;
 use Symfony\Component\Translation\Translator;
 
 class DumperTest extends TestCase
 {
-
     private vfsStreamDirectory $fileSystem;
 
     /**
@@ -19,7 +20,7 @@ class DumperTest extends TestCase
      */
     private array $localData = [];
 
-    public function testDumper()
+    final public function testDumper(): void
     {
         $translation = new Translator('en');
         $translation->addLoader('php', new PHPFileLoader());
@@ -51,7 +52,11 @@ class DumperTest extends TestCase
         );
     }
 
-    protected function setUp(): void
+    /**
+     * @throws RandomException
+     * @throws JsonException
+     */
+    final public function setUp(): void
     {
         $this->localData = [
             'en' => [
@@ -74,12 +79,11 @@ class DumperTest extends TestCase
                     "define(%s, %s);",
                     json_encode((string)$from, JSON_THROW_ON_ERROR),
                     json_encode((string)$to, JSON_THROW_ON_ERROR)
-                    ) . PHP_EOL;
+                ) . PHP_EOL;
             }
             $filesystem['translations'][$lang] = $data;
         }
 
         $this->fileSystem = vfsStream::setup('tmp', null, $filesystem);
     }
-
 }

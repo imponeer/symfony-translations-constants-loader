@@ -2,6 +2,7 @@
 
 namespace Imponeer\SymfonyTranslationsConstantsLoader;
 
+use JsonException;
 use Symfony\Component\Translation\Dumper\FileDumper;
 use Symfony\Component\Translation\MessageCatalogue;
 
@@ -12,9 +13,12 @@ use Symfony\Component\Translation\MessageCatalogue;
  */
 class PHPFileDumper extends FileDumper
 {
-
     /**
      * @inheritDoc
+     *
+     * @noinspection MethodShouldBeFinalInspection
+     *
+     * @throws JsonException
      */
     public function formatCatalogue(MessageCatalogue $messages, string $domain, array $options = []): string
     {
@@ -33,6 +37,9 @@ class PHPFileDumper extends FileDumper
 
     /**
      * @inheritDoc
+     *
+     * @noinspection MethodShouldBeFinalInspection
+     * @noinspection MethodVisibilityInspection
      */
     protected function getExtension(): string
     {
