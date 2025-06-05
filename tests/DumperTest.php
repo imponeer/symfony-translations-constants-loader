@@ -9,6 +9,8 @@ use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 use Random\RandomException;
+use Symfony\Component\Translation\Catalogue\Catalogue;
+use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Translator;
 
 class DumperTest extends TestCase
@@ -33,9 +35,12 @@ class DumperTest extends TestCase
             );
         }
 
+        $catalogue = $translation->getCatalogue('en');
+        assert($catalogue instanceof MessageCatalogue);
+
         $dumper = new PHPFileDumper();
         $dumper->dump(
-            $translation->getCatalogue('en'),
+            $catalogue,
             [
                 'path' => $this->fileSystem->url() . '/dumps/'
             ]

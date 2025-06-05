@@ -9,3 +9,6 @@ composer.phar
 .idea/
 
 /.phpunit.result.cache
+
+# PHPStan
+/.phpstan.cache/

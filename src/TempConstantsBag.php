@@ -29,7 +29,7 @@ final class TempConstantsBag
      * Fake constant definer
      *
      * @param string $constant Constant to define
-     * @param mixed $value Value of constant
+     * @param string|int|float|Stringable $value Value of constant
      */
     public static function define(string $constant, string|int|float|Stringable $value): void
     {
