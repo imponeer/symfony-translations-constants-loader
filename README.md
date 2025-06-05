@@ -74,6 +74,18 @@ vendor/bin/phpunit
 
 This will run all tests in the `tests/` directory.
 
+### Static Analysis
+
+This project uses [PHPStan](https://phpstan.org/) for static code analysis at level 5. PHPStan helps detect bugs and potential issues without running the code.
+
+To run the static analysis:
+
+```bash
+composer phpstan
+```
+
+The analysis checks both the `src/` and `tests/` directories. Configuration can be found in the `phpstan.neon` file.
+
 ## How to contribute?
 
 If you want to add some functionality or fix bugs, you can fork, change and create pull request. If you not sure how this works, try read [GitHub documentation about git](https://docs.github.com/en/get-started/using-git).
