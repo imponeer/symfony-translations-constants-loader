@@ -39,9 +39,11 @@ jobs:
         run: composer validate --no-check-lock
       - name: PHP CodeSniffer
         run: composer phpcs
+      - name: PHPStan
+        run: composer phpstan
       - name: PHPUnit
         run: composer test
-        
+
   dependabot:
     needs: tests
     permissions:

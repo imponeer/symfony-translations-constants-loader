@@ -25,17 +25,8 @@ class PHPFileLoader implements LoaderInterface
             throw new NotFoundResourceException($resource . ' is not found');
         }
 
-        $content = '<?php ' . PHP_EOL .
-            'namespace Imponeer\\SymfonyTranslationsConstantsLoader\\Temp\\Dummy' .
-            md5(random_int(0, PHP_INT_MAX)) . ';' . PHP_EOL .
-            'use ' . TempConstantsBag::class . ';' . PHP_EOL .
-            'function define($constant, $value) {' . PHP_EOL .
-            '  TempConstantsBag::define($constant, $value);' . PHP_EOL .
-            '}' . PHP_EOL .
-            '?>' . file_get_contents($resource);
-
         {
-            eval('?>' . $content);
+            eval('?>' . $this->wrapResourceInVirtualNamespace($resource));
         }
 
         $messageCatalogue = new MessageCatalogue($locale);
@@ -46,5 +37,30 @@ class PHPFileLoader implements LoaderInterface
         TempConstantsBag::clear();
 
         return $messageCatalogue;
+    }
+
+    /**
+     * @throws RandomException
+     */
+    private function wrapResourceInVirtualNamespace(string $filename): string
+    {
+        return '<?php ' . PHP_EOL .
+            'namespace ' . $this->generateVirtualNamespaceName() . ';' . PHP_EOL .
+            'use ' . TempConstantsBag::class . ';' . PHP_EOL .
+            'function define($constant, $value) {' . PHP_EOL .
+            '  TempConstantsBag::define($constant, $value);' . PHP_EOL .
+            '}' . PHP_EOL .
+            '?>' . file_get_contents($filename);
+    }
+
+    /**
+     * @throws RandomException
+     */
+    private function generateVirtualNamespaceName(): string
+    {
+        return sprintf(
+            "Imponeer\\SymfonyTranslationsConstantsLoader\\Temp\\Dummy%s",
+            md5((string) random_int(0, PHP_INT_MAX))
+        );
     }
 }
